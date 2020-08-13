@@ -1,0 +1,76 @@
+{
+    "units":{
+        "perihelion": "km",
+        "aphelion": "km",
+        "surfaceTemperature": "Kelvin",
+        "mass": "kg",
+        "volume": "cubic km"  
+    },
+    "planets": [
+        {
+            "name": "Mercury",
+            "perihelion": 46001200,
+            "aphelion": 69816900,
+            "surfaceTemperature": 440,
+            "mass": 328500000000000000000000,
+            "volume": 60830000000
+        },
+        {
+            "name": "Venus",
+            "perihelion": 107477000,
+            "aphelion": 108939000,
+            "surfaceTemperature": 440,
+            "mass": 4867500000000000000000000,
+            "volume": 9284300000000
+        },
+        {
+            "name": "Earth",
+            "perihelion": 147095000,
+            "aphelion": 152100000,
+            "surfaceTemperature": 288,
+            "mass": 5972370000000000000000000,
+            "volume": 1083210000000
+        },
+        {
+            "name": "Mars",
+            "perihelion": 206669000,
+            "aphelion": 249209300,
+            "surfaceTemperature": 208,
+            "mass": 641710000000000000000000,
+            "volume": 163180000000
+        },
+        {
+            "name": "Jupiter",
+            "perihelion": 740573600,
+            "aphelion": 816520800,
+            "surfaceTemperature": 163,
+            "mass": 1898600000000000000000000000,
+            "volume": 1431280000000000
+        },
+        {
+            "name": "Saturn",
+            "perihelion": 1353572956,
+            "aphelion": 1513325783,
+            "surfaceTemperature": 133,
+            "mass": 568460000000000000000000000,
+            "volume": 827130000000000
+        },
+        {
+            "name": "Uranus",
+            "perihelion": 2748938461,
+            "aphelion": 3004419704,
+            "surfaceTemperature": 78,
+            "mass": 86800000000000000000000000,
+            "volume": 68330000000000
+        },
+        {
+            "name": "Neptune",
+            "perihelion": 4452940833,
+            "aphelion": 4553946490,
+            "surfaceTemperature": 73,
+            "mass": 102430000000000000000000000,
+            "volume": 62540000000000
+        }
+
+    ]
+}
