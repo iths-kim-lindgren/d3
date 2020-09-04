@@ -3,20 +3,33 @@
 // const data = "./world.json"
 
 (async function () {
-    var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
-        height = 800 - margin.top - margin.bottom,
-        width = 1200 - margin.left - margin.right;
+    // var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
+    //     height = 1000 - margin.top - margin.bottom,
+    //     width = 1000 - margin.left - margin.right;
+        
+
+    // var svg = d3.select("#map")
+    //     .append("svg")
+    //     .attr("height", height + margin.top + margin.bottom)
+    //     .attr("width", width + margin.left + margin.right)
+    //     .append("g")
+    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
+        height = 2000
+        width = 5000
+        
 
     var svg = d3.select("#map")
         .append("svg")
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("width", width + margin.left + margin.right)
+        .attr("height", height)
+        .attr("width", width)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + 50 + "," + 50 + ")");
 
     // PROJECTION
     var projection = d3.geoEqualEarth()
-        .translate([width / 2, height / 2])
+        .translate([width / 2.5, height / 1.5])
         .scale(1000)
     // center()
 
@@ -35,7 +48,7 @@
             document.querySelector("h3").innerText = `Time: ${time} seconds`
         }, 1000)
 
-    const data = await d3.json("europe.geo.json")
+    const data = await d3.json("middle-east.geo.json")
 
     var topology = topojson.topology({ foo: data });
 
