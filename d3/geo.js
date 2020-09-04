@@ -3,29 +3,29 @@
 // const data = "./world.json"
 
 (async function () {
-    // var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
-    //     height = 1000 - margin.top - margin.bottom,
-    //     width = 1000 - margin.left - margin.right;
-        
-
-    // var svg = d3.select("#map")
-    //     .append("svg")
-    //     .attr("height", height + margin.top + margin.bottom)
-    //     .attr("width", width + margin.left + margin.right)
-    //     .append("g")
-    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
-        height = 2000
-        width = 5000
+    var margin = { top: 20, left: 50, right: 50, bottom: 50 },
+        height = 3500 - margin.top - margin.bottom,
+        width = 5000 - margin.left - margin.right;
         
 
     var svg = d3.select("#map")
         .append("svg")
-        .attr("height", height)
-        .attr("width", width)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width + margin.left + margin.right)
         .append("g")
-        .attr("transform", "translate(" + 50 + "," + 50 + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
+        // height = 3500
+        // width = 5000
+        
+
+        // var svg = d3.select("#map")
+        //     .append("svg")
+        //     .attr("height", height)
+        //     .attr("width", width)
+        //     .append("g")
+        //     .attr("transform", "translate(" + 50 + "," + 50 + ")");
 
     // PROJECTION
     var projection = d3.geoEqualEarth()
@@ -48,7 +48,7 @@
             document.querySelector("h3").innerText = `Time: ${time} seconds`
         }, 1000)
 
-    const data = await d3.json("middle-east.geo.json")
+    const data = await d3.json("world.geo.json")
 
     var topology = topojson.topology({ foo: data });
 
@@ -99,8 +99,4 @@
             }
         }
     }
-
-
-
-
 })()
