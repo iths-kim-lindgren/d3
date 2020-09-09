@@ -1,20 +1,14 @@
-
-
-// const data = "./world.json"
-
 (async function () {
-    // var margin = { top: 20, left: 50, right: 50, bottom: 50 },
-    //     height = 4000 - margin.top - margin.bottom,
-    //     width = 2000 - margin.left - margin.right;
-        height = 4000
-        width = 3000
+    var margin = { top: 20, left: 50, right: 50, bottom: 50 },
+        height = 4000 - margin.top - margin.bottom,
+        width = 2000 - margin.left - margin.right;
 
-    // var svg = d3.select("#map")
-    //     .append("svg")
-    //     .attr("height", height + margin.top + margin.bottom)
-    //     .attr("width", width + margin.left + margin.right)
-    //     .append("g")
-    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = d3.select("#map")
+        .append("svg")
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width + margin.left + margin.right)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
         var svg = d3.select("#map")
         .append("svg")
@@ -34,7 +28,6 @@
     console.log(d3)
 
     // CREATE PATH
-
     var path = d3.geoPath()
         .projection(projection)
 
@@ -53,28 +46,10 @@
     const cities = topojson.feature(topology, topology.objects.bar).features
     // const countries = topojson.feature(data, data.objects.ne_110m_admin_0_countries1).features
     
-    console.log(cities[0].properties.FEATURECLA)
-    
     let targetCountries = countries
     let targetCities = cities.filter(city => city.properties.FEATURECLA === "Admin-0 capital" && city.properties.TIMEZONE.includes("Europe"))
     console.log(targetCities)
     selectCountry()
-
-    // Promise.all([
-    //     d3.json("file1.json"),
-    //     d3.json("file2.json"),
-    // ]).then(function(files) {
-    //     // files[0] will contain file1.csv
-    //     // files[1] will contain file2.csv
-    // }).catch(function(err) {
-    //     // handle error here
-    // })
-
-    // svg.selectAll(".country")
-    //     .data(cities) /* binder selectAll till enter() */
-    //     .enter().append("path")
-    //     .attr("class", "country")
-    //     .attr("d", path) 
 
     let combined = d3.merge([countries, cities])
     console.log(combined)
