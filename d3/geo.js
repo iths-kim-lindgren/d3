@@ -3,35 +3,31 @@
 // const data = "./world.json"
 
 (async function () {
-    var margin = { top: 20, left: 50, right: 50, bottom: 50 },
-        height = 3500 - margin.top - margin.bottom,
-        width = 5000 - margin.left - margin.right;
-        
+    // var margin = { top: 20, left: 50, right: 50, bottom: 50 },
+    //     height = 4000 - margin.top - margin.bottom,
+    //     width = 2000 - margin.left - margin.right;
+        height = 4000
+        width = 3000
 
-    var svg = d3.select("#map")
+    // var svg = d3.select("#map")
+    //     .append("svg")
+    //     .attr("height", height + margin.top + margin.bottom)
+    //     .attr("width", width + margin.left + margin.right)
+    //     .append("g")
+    //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+        var svg = d3.select("#map")
         .append("svg")
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("width", width + margin.left + margin.right)
+        .attr("height", height)
+        .attr("width", width)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // var margin = { top: 2000, left: 50, right: 50, bottom: 50 },
-        // height = 3500
-        // width = 5000
-        
-
-        // var svg = d3.select("#map")
-        //     .append("svg")
-        //     .attr("height", height)
-        //     .attr("width", width)
-        //     .append("g")
-        //     .attr("transform", "translate(" + 50 + "," + 50 + ")");
+        .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
     // PROJECTION
-    var projection = d3.geoEqualEarth()
+    var projection = d3.geoMercator()
         .translate([width / 2.5, height / 1.5])
         .scale(1000)
-    // center()
+        // .center()
 
     // geocentroid
 
@@ -48,19 +44,44 @@
             document.querySelector("h3").innerText = `Time: ${time} seconds`
         }, 1000)
 
-    const data = await d3.json("world.geo.json")
-
-    var topology = topojson.topology({ foo: data });
+    // const data = await d3.json("capitals_0yl.json")
+    const data = await Promise.all([d3.json("countries.geojson"), d3.json("capitals.geojson")])
+        console.log(data)
+    var topology = topojson.topology({ foo: data[0], bar: data[1] });
 
     const countries = topojson.feature(topology, topology.objects.foo).features
+    const cities = topojson.feature(topology, topology.objects.bar).features
     // const countries = topojson.feature(data, data.objects.ne_110m_admin_0_countries1).features
-    console.log(countries)
+    
+    console.log(cities[0].properties.FEATURECLA)
+    
     let targetCountries = countries
+    let targetCities = cities.filter(city => city.properties.FEATURECLA === "Admin-0 capital" && city.properties.TIMEZONE.includes("Europe"))
+    console.log(targetCities)
     selectCountry()
+
+    // Promise.all([
+    //     d3.json("file1.json"),
+    //     d3.json("file2.json"),
+    // ]).then(function(files) {
+    //     // files[0] will contain file1.csv
+    //     // files[1] will contain file2.csv
+    // }).catch(function(err) {
+    //     // handle error here
+    // })
+
+    // svg.selectAll(".country")
+    //     .data(cities) /* binder selectAll till enter() */
+    //     .enter().append("path")
+    //     .attr("class", "country")
+    //     .attr("d", path) 
+
+    let combined = d3.merge([countries, cities])
+    console.log(combined)
 
 
     svg.selectAll(".country")
-        .data(countries) /* binder selectAll till enter() */
+        .data(combined) /* binder selectAll till enter() */
         .enter().append("path")
         .attr("class", "country")
         .attr("d", path)
@@ -73,7 +94,7 @@
         .on("click", function (d) {
             d3.selectAll(".country")
                 .classed("selected", false)
-                if (d.targetCountry && !d.previousTarget){
+                if (d.targetCity && !d.previousTarget){
                     let index = targetCountries.indexOf(d)
                     d.previousTarget = true
 
@@ -84,18 +105,18 @@
         })
         
         function selectCountry() {
-            if (targetCountries.length == 0) {
+            if (targetCities.length == 0) {
                 document.querySelector("h2").innerText = `Solved it in ${time} seconds!`
                 clearInterval(countUp)
            return
         }
-        let rand = Math.floor(Math.random() * targetCountries.length)
-        console.log(targetCountries)
-        for (let country in targetCountries) {
-            targetCountries[country].targetCountry = false
+        let rand = Math.floor(Math.random() * targetCities.length)
+        console.log(targetCities)
+        for (let country in targetCities) {
+            targetCities[country].targetCity = false
             if (country == rand) {
-                targetCountries[country].targetCountry = true
-                document.querySelector("h2").innerText = `Click on ${targetCountries[country].properties.admin}`
+                targetCities[country].targetCity = true
+                document.querySelector("h2").innerText = `Click on ${targetCities[country].properties.NAME}`
             }
         }
     }
